@@ -1,0 +1,3 @@
+# jellyfin server
+
+in elixir
