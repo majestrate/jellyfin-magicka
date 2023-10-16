@@ -1,8 +1,8 @@
-# jellyfin server
+# Jellyfin Magicka
 
 ![logo by autismus maximus](logo.webp)
 
-a jellyfin media server written in elixir
+Jellyfin media server rewritten in elixir
 
 ## requirements
 
