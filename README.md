@@ -1,5 +1,7 @@
 # jellyfin server
 
+![logo by autismus maximus](logo.webp)
+
 a jellyfin media server written in elixir
 
 ## requirements
