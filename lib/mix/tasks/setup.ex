@@ -9,10 +9,6 @@ defmodule Mix.Tasks.Jellyfin.Setup do
 
   use Mix.Task
 
-  defp print_help() do
-    Mix.shell().info([@moduledoc])
-  end
-
   defguardp command_is(args, cmd) when hd(args) == cmd
 
   @impl Mix.Task
@@ -22,6 +18,6 @@ defmodule Mix.Tasks.Jellyfin.Setup do
 
   @impl Mix.Task
   def run(args) when length(args) == 0 or command_is(args, "help") do
-    print_help()
+    Mix.shell().info([@moduledoc])
   end
 end
