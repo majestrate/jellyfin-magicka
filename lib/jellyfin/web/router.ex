@@ -8,6 +8,8 @@ defmodule Jellyfin.Web.Router do
     plug :dispatch
 
 
+
+
     forward "/System", to: Jellyfin.Web.Routes.SystemRouter
 
     get "/ligma" do

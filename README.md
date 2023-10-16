@@ -6,6 +6,7 @@ in elixir
 
 compile:
 
+    $ asdf install
     $ mix deps.get
 
 run:

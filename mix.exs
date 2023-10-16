@@ -5,7 +5,7 @@ defmodule JellyfinElixir.MixProject do
     [
       app: :jellyfin_elixir,
       version: "0.1.0",
-      elixir: "~> 1.8",
+      elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -23,7 +23,8 @@ defmodule JellyfinElixir.MixProject do
   defp deps do
     [
     {:plug, "~> 1.14"},
-    {:plug_cowboy, "~> 2.0"}
+    {:plug_cowboy, "~> 2.0"},
+    {:cors_plug, "~> 3.0"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
