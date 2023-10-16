@@ -2,7 +2,6 @@ defmodule Mix.Tasks.Jellyfin.Setup do
   @moduledoc "Jellyfin Setup tool
 
   usage: mix jellyfin.setup genconf [--interactive]
-
   "
 
   @shortdoc "Jellyfin Setup tool"
