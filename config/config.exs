@@ -1,8 +1,18 @@
 import Config
 
-config :ecto, Repo, url: "sqlite://jellyfin_#{Mix.env()}.sqlite"
+config :jellyfin, :db,
+  database: "jellyfin",
+  username: "",
+  password: "",
+  hostname: "",
+  adapter: Ecto.Adapters.Postgres
 
-secrets = "#{Mix.env()}_secret.exs"
+config :jellyfin,
+  ecto_repos: [
+    Jellyfin.Repo
+  ]
+
+secrets = "#{Mix.env()}.secret.exs"
 
 if File.exists?(secrets) do
   import_config secrets

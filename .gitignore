@@ -24,3 +24,7 @@ jellyfin_elixir-*.tar
 
 # temp files
 *~
+*.kate-swp
+
+# config secrets
+/config/*.secret.exs

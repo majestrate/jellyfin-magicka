@@ -1,6 +1,6 @@
 # Jellyfin Magicka
 
-![logo by autismus maximus](logo.webp)
+![logo by autismus maximus](logo.svg)
 
 Jellyfin media server rewritten in elixir
 
@@ -27,7 +27,7 @@ compile:
 
 configure:
 
-    $ mix jellyfin.setup --genconf --interactive
+    $ mix jellyfin.setup genconf --interactive
 
 run:
 
