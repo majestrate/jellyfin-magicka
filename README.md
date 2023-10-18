@@ -24,10 +24,12 @@ compile:
     $ mix deps.get
     $ mix ecto.up
 
-
+<!--
 configure:
 
     $ mix jellyfin.setup genconf --interactive
+
+-->
 
 run:
 
