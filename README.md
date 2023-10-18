@@ -1,5 +1,7 @@
 # Jellyfin Magicka
 
+## **currently in development, NOT for end users**
+
 ![logo by autismus maximus](logo.svg)
 
 Jellyfin media server rewritten in elixir
@@ -16,7 +18,6 @@ Jellyfin media server rewritten in elixir
 setup:
 
     $ asdf install
-
 
 compile:
 
