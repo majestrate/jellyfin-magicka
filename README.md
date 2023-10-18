@@ -1,19 +1,22 @@
 # Jellyfin Magicka
 
-## **currently in development, NOT for end users**
+## <span style='color: red;'> **Currently in development, NOT for end users** </span>
 
 ![logo by autismus maximus](logo.svg)
 
-Jellyfin media server rewritten in elixir
+### Jellyfin media server rewritten in elixir
 
-## requirements
+# Workflow
+
+`uwu`
+
+## Requirements
 
 * elixir >= 1.15
 * erlang >= 26.1
 * ffmpeg >= 5.1
 * postgresql >= 15 with rum indices
 
-## workflow
 
 setup:
 
