@@ -27,4 +27,4 @@ jellyfin_elixir-*.tar
 *.kate-swp
 
 # config secrets
-/config/*.secret.exs
+/config/*_secrets.exs

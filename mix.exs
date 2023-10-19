@@ -24,7 +24,9 @@ defmodule Jellyfin.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:cors_plug, "~> 3.0"},
       {:ecto, "~> 3.10"},
-      {:ecto_sql, "~> 3.10"}
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, "~> 0.17.3"},
+      {:jason, "~> 1.0"}
     ]
   end
 end

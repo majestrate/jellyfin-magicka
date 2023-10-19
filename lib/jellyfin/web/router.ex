@@ -2,13 +2,18 @@ defmodule Jellyfin.Web.Router do
   use Plug.Router
 
   plug(Plug.Logger)
+  plug(Plug.RequestId)
+
   plug(:match)
   plug(:dispatch)
 
   forward("/System", to: Jellyfin.Web.Routes.SystemRouter)
 
-  get "/ligma" do
-    send_resp(conn, 200, "ligma balls")
+  get "/" do
+    case conn.query_string do
+      "stevejobs" -> send_resp(conn, 410, "LIGMA BALLS")
+      _ -> send_resp(conn, 200, "")
+    end
   end
 
   match _ do
