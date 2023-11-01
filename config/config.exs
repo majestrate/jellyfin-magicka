@@ -23,4 +23,17 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+passwd_file = "config/#(config_env()}_db_passwd.txt"
+
+{:ok, passwd} =
+  cond do
+    File.exists?(passwd_file) -> File.read!(passwd_file)
+    true -> {:ok, nil}
+  end
+
+# defaults
+config :jellyfin, Jellyfin.Repo,
+  username: "jellyfin_#{config_env()}",
+  password: passwd
+
 import_config "#{config_env()}.exs"

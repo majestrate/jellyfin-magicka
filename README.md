@@ -35,17 +35,17 @@ compile:
 
 configure database:
 	
+this will create a user access the database server with that will create and drop databases for jellyfin.
+		
+	$ mix jellyfin genconf
+    $ sudo -Hu postgres psql ./config/setup_dev_database.sql
 
+the password is dumped to a file and is read by config on runtime.
 
-    $ cp config/{example,dev}.exs 
-	
-edit `config/dev.exs` with db creds
 	
 initialize database:
 
-	
-	$ mix ecto up
-	$ mix ecto migrate
+	$ mix jellyfin 
 
 <!--
 configure:

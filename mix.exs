@@ -45,13 +45,13 @@ defmodule Jellyfin.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, ">= 0.0.0"},
+      {:random_password, "~> 1.2"},
       {:markdown_formatter, "~> 0.6", only: :dev, runtime: false}
     ]
   end
 
   defp aliases() do
     [
-      compile: ["jellyfin compile"],
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],

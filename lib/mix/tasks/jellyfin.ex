@@ -3,6 +3,10 @@ defmodule Mix.Tasks.Jellyfin do
 
   use Mix.Task
 
+  defmodule Password do
+    use(RandomPassword, alpha: 24, decimal: 16, symbol: 0)
+  end
+
   defguardp is_cmd(args, cmd) when is_list(args) and hd(args) == cmd
 
   defp priv(path) when is_binary(path) do
@@ -111,6 +115,39 @@ defmodule Mix.Tasks.Jellyfin do
   def run(args) when is_cmd(args, "run") do
     args_for("compile", args) |> run()
     Mix.Task.run("run", @run_opts)
+  end
+
+  def run(args) when is_cmd(args, "genconf") do
+    env = Mix.env()
+
+    passwd_file = Path.join("config", "#{env}_db_passwd.txt")
+
+    {:ok, passwd} =
+      cond do
+        File.exists?(passwd_file) ->
+          File.read(passwd_file)
+
+        true ->
+          passwd = Password.generate()
+          :ok = File.write!(passwd_file, passwd)
+          IO.puts(["wrote #{passwd_file}"])
+          {:ok, passwd}
+      end
+
+    sql_file = Path.join("config", "setup_#{env}_database.sql")
+
+    :ok =
+      cond do
+        not File.exists?(sql_file) ->
+          sql_file
+          |> File.write!("CREATE USER jellyfin_#{env} WITH CREATEDB LOGIN PASSWORD '#{passwd}';")
+
+          IO.puts(["wrote #{sql_file}"])
+          :ok
+
+        true ->
+          :ok
+      end
   end
 
   def run(arg) when is_binary(arg) do
