@@ -5,8 +5,15 @@ defmodule JellyfinWeb.Router do
     plug(:accepts, ["json"])
   end
 
-  scope "/_api", JellyfinWeb do
+  pipeline :web do
+  end
+
+  scope "/api", JellyfinWeb do
     pipe_through(:api)
+  end
+
+  scope "/web", JellyfinWeb do
+    pipe_through(:static)
   end
 
   # Enable LiveDashboard in development
@@ -18,10 +25,10 @@ defmodule JellyfinWeb.Router do
     # as long as you are also using SSL (which you should anyway).
     import Phoenix.LiveDashboard.Router
 
-    scope "/_dev" do
+    scope "/dev" do
       pipe_through([:fetch_session, :protect_from_forgery])
 
-      live_dashboard("/_dashboard", metrics: JellyfinWeb.Telemetry)
+      live_dashboard("/dashboard", metrics: JellyfinWeb.Telemetry)
     end
   end
 end

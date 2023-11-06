@@ -17,7 +17,11 @@ defmodule JellyfinWeb do
   those modules here.
   """
 
-  def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
+  def webui_dir() do
+    Application.app_dir(:jellyfin, "priv") |> Path.join("web")
+  end
+
+  def static_paths, do: [webui_dir()]
 
   def router do
     quote do
@@ -38,8 +42,9 @@ defmodule JellyfinWeb do
   def controller do
     quote do
       use Phoenix.Controller,
-        formats: [:html, :json],
-        layouts: [html: JellyfinWeb.Layouts]
+        formats: [:json, :html],
+        html: [JellyfinWeb.Layouts],
+        layouts: []
 
       import Plug.Conn
 

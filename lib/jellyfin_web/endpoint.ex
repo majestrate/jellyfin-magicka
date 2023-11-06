@@ -7,19 +7,21 @@ defmodule JellyfinWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_jellyfin_key",
-    signing_salt: "fug",
+    signing_salt: "joKDRV3D",
     same_site: "Lax"
   ]
 
-  # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 
+  # Serve at "/" the static files from "priv/static" directory.
+  #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug(Plug.Static,
-    at: "/web/",
+    at: "/",
     from: :jellyfin,
     gzip: false,
-    only: :code.priv_dir(:jellyfin)
+    only: JellyfinWeb.webui_dir()
   )
 
   # Code reloading can be explicitly enabled under the

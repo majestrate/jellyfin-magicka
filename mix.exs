@@ -46,6 +46,7 @@ defmodule Jellyfin.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, ">= 0.0.0"},
       {:random_password, "~> 1.2"},
+      {:flake_id, "~> 0.1.0"},
       {:markdown_formatter, "~> 0.6", only: :dev, runtime: false}
     ]
   end
@@ -55,14 +56,14 @@ defmodule Jellyfin.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.reset", "test"]
     ]
   end
 
   def cli do
     [
       preferred_envs: [
-        "jellyfin.test": :test,
+        test: :test,
         release: :prod
       ]
     ]
