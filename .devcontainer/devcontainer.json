@@ -15,7 +15,7 @@
 			"erlangVersion": "26.1.1"
 		},
 		"ghcr.io/devcontainers-contrib/features/node-asdf:0": {
-			"version": "latest"
+			"version": "20.8.1"
 		}
 	}
 }
