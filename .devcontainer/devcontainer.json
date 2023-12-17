@@ -4,8 +4,8 @@
 		"ghcr.io/devcontainers-contrib/features/apt-packages:1": {
 			"clean_ppas": true,
 			"preserve_apt_list": true,
-			"packages": ["build-essential", "ffmpeg"]
-			"ppas": "ppa:deadsnakes/ppa"
+			"packages": ["build-essential", "ffmpeg"],
+			"ppas": null
 		},
 		"ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {
 			"elixirVersion": "latest",
