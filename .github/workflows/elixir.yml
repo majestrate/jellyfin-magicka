@@ -16,27 +16,8 @@ jobs:
     name: Build and test
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
-    - name: Install ASDF
-      uses: asdf-vm/action@v1
-
-    - name: "Setup ASDF"
-      uses: actions/bash@v1
-      with:
-        working-directory: ${{ github.workspace }}
-        shell: bash
-        run: |
-          asdf plugin add erlang
-          asdf plugin add elixir
-          asdf plugin add nodejs
-          asdf install
-          asdf reshim
-    - name: Cache ASDF
-      uses: actions/cache@v2
-      with:
-        path: ~/.asdf
-        key: ${{ runner.os }}-asdf-${{ hashFiles('**/.tool-versions') }}
-        restore-keys: ${{ runner.os }}-asdf
+    - name: Install asdf & tools
+      uses: asdf-vm/actions/install@v2
     - name: Restore dependencies cache
       uses: actions/cache@v3
       with:
