@@ -33,8 +33,7 @@ defmodule Mix.Tasks.Jellyfin do
 
   defp update_submodule() do
     Mix.shell().info("updating submodule #{webui(:git)}")
-    {:ok, _} = Mix.Task.run("cmd", ["git", "submodule", "update", "--init", "--recursive"])
-    :ok
+    Mix.Task.run("cmd", ["git", "submodule", "update", "--init", "--recursive"])
   end
 
   defp npm(target, more) when is_list(more) do
