@@ -56,7 +56,8 @@ defmodule Jellyfin.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.reset", "test"]
+      test: ["ecto.reset", "test"],
+      compile: ["deps.compile", "compile.protocols", "compile.elixir", "jellyfin compile"]
     ]
   end
 

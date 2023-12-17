@@ -19,12 +19,22 @@ defmodule Mix.Tasks.Jellyfin do
     Path.join("external", "jellyfin-web")
   end
 
+  defp webui(:gitdata) do
+    webui(:git) |> Path.join(".git")
+  end
+
   defp webui(:compile) do
     webui(:git) |> Path.join("dist")
   end
 
   defp webui(:output) do
     priv("web")
+  end
+
+  defp update_submodule() do
+    Mix.shell().info("updating submodule #{webui(:git)}")
+    {:ok, _} = Mix.Task.run("cmd", ["git", "submodule", "update", "--init", "--recursive"])
+    :ok
   end
 
   defp npm(target, more) when is_list(more) do
@@ -67,6 +77,12 @@ defmodule Mix.Tasks.Jellyfin do
   end
 
   defp compile_webui() do
+    :ok =
+      cond do
+        not File.exists?(webui(:gitdata)) -> update_submodule()
+        true -> :ok
+      end
+
     Mix.shell().info("compile webui in #{webui(:git)} to #{webui(:output)}")
     npm("install")
     npm("run", build_target())
