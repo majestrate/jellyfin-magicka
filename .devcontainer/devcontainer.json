@@ -1,15 +1,18 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"image": "mcr.microsoft.com/devcontainers/base:debian",
 	"features": {
 		"ghcr.io/devcontainers-contrib/features/apt-packages:1": {
 			"clean_ppas": true,
 			"preserve_apt_list": true,
-			"packages": ["build-essential", "ffmpeg"],
-			"ppas": null
+			"packages": [
+				"ffmpeg",
+				"automake",
+				"build-essential"
+			]
 		},
 		"ghcr.io/devcontainers-contrib/features/elixir-asdf:2": {
-			"elixirVersion": "latest",
-			"erlangVersion": "latest"
+			"elixirVersion": "1.15",
+			"erlangVersion": "26.1.1"
 		},
 		"ghcr.io/devcontainers-contrib/features/node-asdf:0": {
 			"version": "latest"
