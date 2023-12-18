@@ -2,14 +2,12 @@ defmodule Jellyfin.APIServer do
   use Plug.Router
   use Plug.ErrorHandler
 
-  plug(Plug.Logger)
+  import Jason
+  import Jason.Helpers
 
+  plug(Plug.Logger)
   plug(:match)
   plug(:dispatch)
-
-  get "/" do
-    send_resp(conn, :ok, "jellyfin")
-  end
 
   defp redirect_to(conn, to) do
     conn
@@ -18,11 +16,15 @@ defmodule Jellyfin.APIServer do
     |> send_resp()
   end
 
-  get "/web/" do
-    conn |> redirect_to("/web/index.html")
+  defp send_json(conn, status, obj) do
+    body = Jason.encode!(obj)
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(status, body)
   end
 
-  get "/web/*glob" do
+  defp serve_webui(conn) do
     path = Path.join(conn.path_info) |> String.replace("%40", "@")
 
     fname =
@@ -35,6 +37,19 @@ defmodule Jellyfin.APIServer do
     end
   end
 
+  def serve_public_info(conn) do
+    obj = Jason.Helpers.json_map(ID: "fug")
+    conn |> send_json(:ok, obj)
+  end
+
+  get "/web/" do
+    conn |> redirect_to("/web/index.html")
+  end
+
+  get "/web/*glob" do
+    serve_webui(conn)
+  end
+
   get "/_version" do
     resp =
       case :application.get_key(:jellyfin, :vsn) do
@@ -45,7 +60,13 @@ defmodule Jellyfin.APIServer do
     send_resp(conn, :ok, resp)
   end
 
-  forward("/System", to: Jellyfin.Routes.System)
+  get "/System/Public/Info" do
+    serve_public_info(conn)
+  end
+
+  get "/" do
+    conn |> redirect_to("/web/")
+  end
 
   get _ do
     send_resp(conn, :not_found, "")

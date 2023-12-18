@@ -6,8 +6,7 @@ defmodule JellyfinTest.APIServerTest do
     :ok =
       req_and_test("/")
       |> was_sent_and()
-      |> was_ok_and()
-      |> was_not_redirected_and()
+      |> was_redirected_to_and("/web/")
       |> ok()
 
     :ok =

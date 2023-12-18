@@ -45,6 +45,7 @@ defmodule Mix.Tasks.Jellyfin do
   end
 
   @no_cache "--no-cache-web"
+  @run_opts ["--no-halt"]
 
   defp drop_args(args) do
     drop = [@no_cache]
@@ -109,7 +110,7 @@ defmodule Mix.Tasks.Jellyfin do
 
   def run(args) when is_cmd(args, "run") do
     args_for("compile", args) |> run()
-    Mix.Task.run("run", args ++ ["--no-halt"])
+    Mix.Task.run("run", @run_opts)
   end
 
   def run(arg) when is_binary(arg) do
