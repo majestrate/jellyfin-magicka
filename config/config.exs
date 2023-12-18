@@ -1,23 +1,26 @@
 import Config
-import Logger
 
-config :logger,
-  level: :all
+config :jellyfin,
+  ecto_repos: [Jellyfin.Repo],
+  generators: [timestamp_type: :utc_datetime]
 
-config :jellyfin, :ecto_repos, [Jellyfin.Repo]
+# Configures the endpoint
+config :jellyfin, JellyfinWeb.Endpoint,
+  url: [host: "localhost"],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [json: JellyfinWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: Jellyfin.PubSub,
+  live_view: [signing_salt: "/GBKFOlx"]
 
-config :jellyfin, Jellyfin.Repo,
-  database: "jellyfin",
-  username: "",
-  password: "",
-  hostname: "",
-  adapter: Ecto.Adapters.Postgres,
-  priv: "priv/jellyfin"
+# Configures Elixir's Logger
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id]
 
-secrets = "#{config_env()}.exs"
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
 
-:ok =
-  cond do
-    File.exists?("./config/#{secrets}") -> import_config secrets
-    true -> Logger.warning("could not find #{secrets}")
-  end
+import_config "#{config_env()}.exs"

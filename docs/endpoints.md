@@ -93,6 +93,22 @@ This documents them as they are implemented.
 
 ## System
 
+### GET /System/Info/Public
+
+the first API call the webui calls. returns a JSON object.
+
+```
+{
+"LocalAddress": "string",
+"ServerName": "string",
+"Version": "string",
+"ProductName": "string",
+"OperatingSystem": "string",
+"Id": "string",
+"StartupWizardCompleted": true
+}
+```
+
 ## Time Sync
 
 ## TMDB

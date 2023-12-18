@@ -86,6 +86,10 @@ defmodule JellyfinTest.Plug do
         :ok
       end
 
+      def resp_body(test_state) do
+        test_state.conn.resp_body
+      end
+
       def req_and_test(path, method \\ :get) do
         conn = conn(method, path) |> @server.call(@opts)
         %State{conn: conn, name: "[#{method} #{path}]"}

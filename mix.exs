@@ -6,9 +6,11 @@ defmodule Jellyfin.MixProject do
       app: :jellyfin,
       version: "0.1.0",
       elixir: "~> 1.11",
+      elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: CoverModule],
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       releases: [
         jellyfin: [
           include_executables_for: [:unix],
@@ -20,23 +22,40 @@ defmodule Jellyfin.MixProject do
 
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :runtime_tools],
       mod: {Jellyfin.Application, []}
     ]
   end
 
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   defp deps do
     [
-      {:plug, "~> 1.14"},
-      {:cors_plug, "~> 3.0"},
       {:req, "~> 0.4.0"},
-      {:bandit, "~> 1.0"},
-      {:ecto, "~> 3.10"},
-      {:ecto_sql, "~> 3.10"},
-      {:postgrex, "~> 0.17.3"},
-      {:jason, "~> 1.0"},
       {:ffmpex, "~> 0.10.0"},
+      {:phoenix, "~> 1.7.9"},
+      {:phoenix_ecto, "~> 4.4"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_live_dashboard, "~> 0.8.2"},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
+      {:jason, "~> 1.2"},
+      {:dns_cluster, "~> 0.1.1"},
+      {:bandit, ">= 0.0.0"},
       {:markdown_formatter, "~> 0.6", only: :dev, runtime: false}
+    ]
+  end
+
+  defp aliases() do
+    [
+      compile: ["jellyfin compile"],
+      setup: ["deps.get", "ecto.setup"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 
