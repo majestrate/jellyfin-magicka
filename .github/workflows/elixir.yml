@@ -21,31 +21,31 @@ jobs:
       with:
         submodules: recursive
     
-    - name: Restore Cached ASDF
+    - name: ASDF (get cached)
       uses: actions/cache/restore@v3
       id: cache-asdf
       with:
         path: ~/.asdf
         key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
-    - name: Install ASDF
+    - name: ASDF (install)
       if: steps.cache-asdf.outputs.cache-hit != 'true'
       uses: asdf-vm/actions/install@v2
-    - name: Store Cached ASDF 
+    - name: ASDF (store cache)
       if: steps.cache-asdf.outputs.cache-hit != 'true'
       uses: actions/cache/save@v3
       with:
         path: ~/.asdf
         key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
-    - name: Restore Cached Elixir Deps
+    - name: Elixir (get cached)
       uses: actions/cache/restore@v3
       id: cache-elixir
       with:
         path: deps
         key: ${{ runner.os }}-${{ hashFiles('mix.lock') }}
-    - name: mix deps.get
+    - name: Elixir (mix deps)
       if: steps.cache-elixir.outputs.cache-hit != 'true'
-      run: mix deps.get
-    - name: Store Cached Elixir Deps
+      run: mix deps.get deps.compile
+    - name: Elixir (store cached)
       if: steps.cache-elixir.outputs.cache-hit != 'true'
       uses: actions/cache/save@v3
       with:
@@ -61,21 +61,31 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: ASDF (restore cached)
+      - name: ASDF (get cached)
         uses: actions/cache/restore@v3
         id: cache-asdf
         with:
           path: ~/.asdf
           key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
-      - name: Mix (restore cached)
+      - name: ASDF (install)
+        uses: asdf-vm/actions/install@v2
+      - name: Mix (get cached)
         uses: actions/cache/restore@v3
         id: cache-elixir
         with:
           path: deps
           key: ${{ runner.os }}-${{ hashFiles('mix.lock') }}
-      - name: ASDF (ensure cached)
-        uses: asdf-vm/actions/install@v2
-      - name: Mix (ensure cached)
-        run: mix deps.get
+      - name: Elixir (mix deps)
+        run: mix deps.get deps.compile
+      - name: webui (get cached)
+        uses: actions/cache/restore@v3
+        with:
+          path: _build/dev/lib/jellyfin/priv/web
+          key: ${{ runner.os }}-${{ hashFiles('external/jellyfin-web/package-lock.json') }}
       - name: mix compile
         run: mix compile
+      - name: webui (store cached)
+        uses: actions/cache/save@v3
+        with:
+          path: _build/dev/lib/jellyfin/priv/web
+          key: ${{ runner.os }}-${{ hashFiles('external/jellyfin-web/package-lock.json') }}
