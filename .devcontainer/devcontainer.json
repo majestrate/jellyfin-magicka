@@ -7,6 +7,8 @@
 			"packages": [
 				"ffmpeg",
 				"automake",
+				"autoconf-archive",
+				"libtool",
 				"build-essential"
 			]
 		},
