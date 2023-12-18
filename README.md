@@ -29,10 +29,21 @@ set up submodules:
 
 compile:
 
+	$ mix local hex
+	$ mix deps get
 	$ mix jellyfin compile
 
+configure database:
+	
+
+
+    $ cp config/{example,dev}.exs 
+	
+edit `config/dev.exs` with db creds
+	
 initialize database:
 
+	
 	$ mix ecto up
 	$ mix ecto migrate
 
