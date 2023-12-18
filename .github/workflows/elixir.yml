@@ -12,8 +12,8 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Build and test
+  setup:
+    name: setup our build environment
     runs-on: ubuntu-22.04
     steps:
     - name: Checkout source code
@@ -21,24 +21,39 @@ jobs:
     
     - name: Restore Cached ASDF
       uses: actions/cache/restore@v3
-      id: cache
+      id: cache-asdf
       with:
         path: ~/.asdf
         key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
     - name: Install ASDF
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache-asdf.outputs.cache-hit != 'true'
       uses: asdf-vm/actions/install@v2
-    
+    - name: Store Cached ASDF 
+      if: steps.cache-asdf.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v3
+      with:
+        path: ~/.asdf
+        key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
     - name: Restore Cached Elixir Deps
-      uses: actions/cache@v2
+      uses: actions/cache/restore@v3
       id: cache-elixir
       with:
         path: deps
         key: ${{ runner.os }}-${{ hashFiles('mix.lock') }}
-    
     - name: mix deps.get
       if: steps.cache-elixir.outputs.cache-hit != 'true'
       run: mix deps.get
-    
+    - name: Store Cached Elixir Deps
+      if: steps.cache-elixir.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v3
+      with:
+        path: deps
+        key: ${{ runner.os }}-${{ hashFiles('mix.lock') }}
+
+  build:
+    name: build
+    runs-on: ubuntu-22.04
+    needs: setup
+    steps:
     - name: mix compile
       run: mix compile
