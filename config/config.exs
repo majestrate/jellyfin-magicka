@@ -14,11 +14,10 @@ config :jellyfin, Jellyfin.Repo,
   adapter: Ecto.Adapters.Postgres,
   priv: "priv/jellyfin"
 
-secrets = "#{Mix.env()}_secrets.exs"
+secrets = "#{config_env()}.exs"
 
-Logger.debug("looking for #{secrets}")
-
-if File.exists?("./config/#{secrets}") do
-  Logger.info("loading #{secrets}")
-  import_config secrets
-end
+:ok =
+  cond do
+    File.exists?("./config/#{secrets}") -> import_config secrets
+    true -> Logger.warning("could not find #{secrets}")
+  end

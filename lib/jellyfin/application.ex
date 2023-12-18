@@ -5,10 +5,13 @@ defmodule Jellyfin.Application do
   def start(_type, _args) do
     children = [
       Jellyfin.Repo,
-      {Plug.Cowboy, scheme: :http, plug: Jellyfin.Web.Router, options: [port: 4000]}
+      {Ecto.Migrator,
+       repos: Application.fetch_env!(:jellyfin, :ecto_repos),
+       skip: System.get_env("SKIP_MIGRATIONS") == "1"},
+      {Bandit, plug: Jellyfin.APIServer}
     ]
 
-    opts = [strategy: :one_for_one, name: Jellyfin.Supervisor]
+    opts = [strategy: :one_for_all, name: Jellyfin.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
