@@ -29,8 +29,6 @@ set up submodules:
 
 compile:
 
-	$ mix local hex
-	$ mix deps get
 	$ mix jellyfin compile
 
 initialize database:
