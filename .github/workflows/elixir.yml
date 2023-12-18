@@ -18,6 +18,13 @@ jobs:
     steps:
     - name: check out source code
       uses: actions/checkout@v2
-    - uses: asdf-vm/actions/install@v2
+    - uses: actions/cache/restore@v3
+      id: cache
+      with:
+        path: ~/.asdf
+        key: ${{ runner.os }}-${{ hashFiles('.tool-versions') }}
+    - name: Install ASDF
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: asdf-vm/actions/install@v2
     - name: build it
       run: mix deps.get compile
