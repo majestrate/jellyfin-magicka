@@ -35,7 +35,8 @@ defmodule Jellyfin.MixProject do
       {:ecto_sql, "~> 3.10"},
       {:postgrex, "~> 0.17.3"},
       {:jason, "~> 1.0"},
-      {:ffmpex, "~> 0.10.0"}
+      {:ffmpex, "~> 0.10.0"},
+      {:markdown_formatter, "~> 0.6", only: :dev, runtime: false}
     ]
   end
 

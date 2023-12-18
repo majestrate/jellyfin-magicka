@@ -1,4 +1,9 @@
 # Used by "mix format"
 [
-  inputs: ["{mix,.formatter}.exs", "{config,lib,test,priv}/**/*.{ex,exs}"]
+  plugins: [MarkdownFormatter],
+  inputs: [
+    "{mix,.formatter}.exs",
+    "{config,lib,test,priv}/**/*.{ex,exs}",
+    "{docs,.}/*.md"
+  ]
 ]
