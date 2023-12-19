@@ -4,6 +4,8 @@ defmodule Mix.Tasks.Jellyfin do
   use Mix.Task
 
   defmodule Password do
+    import RandomPassword
+
     use(RandomPassword, alpha: 24, decimal: 16, symbol: 0)
   end
 
@@ -163,6 +165,9 @@ defmodule Mix.Tasks.Jellyfin do
         true ->
           :ok
       end
+  end
+
+  def run(args) when is_list(args) do
   end
 
   def run(arg) when is_binary(arg) do

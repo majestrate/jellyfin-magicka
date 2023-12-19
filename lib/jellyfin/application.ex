@@ -12,6 +12,8 @@ defmodule Jellyfin.Application do
       Jellyfin.Repo,
       {DNSCluster, query: Application.get_env(:jellyfin, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Jellyfin.PubSub},
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: Jellyfin.Finch},
       # Start a worker by calling: Jellyfin.Worker.start_link(arg)
       # {Jellyfin.Worker, arg},
       # Start to serve requests, typically the last entry

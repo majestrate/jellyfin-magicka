@@ -9,8 +9,3 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
-Jellyfin.Repo.insert!(%Jellyfin.SystemInfo{
-  server_name: "jellyfin",
-  startup_wizard_completed: false
-})

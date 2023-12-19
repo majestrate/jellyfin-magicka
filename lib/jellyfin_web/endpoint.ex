@@ -7,7 +7,7 @@ defmodule JellyfinWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_jellyfin_key",
-    signing_salt: "joKDRV3D",
+    signing_salt: "xfxq8zlb",
     same_site: "Lax"
   ]
 
@@ -21,12 +21,14 @@ defmodule JellyfinWeb.Endpoint do
     at: "/",
     from: :jellyfin,
     gzip: false,
-    only: JellyfinWeb.webui_dir()
+    only: JellyfinWeb.static_paths()
   )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
+    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
+    plug(Phoenix.LiveReloader)
     plug(Phoenix.CodeReloader)
     plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :jellyfin)
   end

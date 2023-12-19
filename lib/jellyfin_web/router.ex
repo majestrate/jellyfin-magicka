@@ -1,22 +1,31 @@
 defmodule JellyfinWeb.Router do
   use JellyfinWeb, :router
 
+  pipeline :browser do
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, html: {JellyfinWeb.Layouts, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
+  end
+
   pipeline :api do
     plug(:accepts, ["json"])
   end
 
-  pipeline :web do
+  scope "/", JellyfinWeb do
+    pipe_through(:browser)
+
+    get("/", PageController, :home)
   end
 
-  scope "/api", JellyfinWeb do
-    pipe_through(:api)
-  end
+  # Other scopes may use custom stacks.
+  # scope "/api", JellyfinWeb do
+  #   pipe_through :api
+  # end
 
-  scope "/web", JellyfinWeb do
-    pipe_through(:static)
-  end
-
-  # Enable LiveDashboard in development
+  # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:jellyfin, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
     # it behind authentication and allow only admins to access it.
@@ -26,9 +35,10 @@ defmodule JellyfinWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through([:fetch_session, :protect_from_forgery])
+      pipe_through(:browser)
 
       live_dashboard("/dashboard", metrics: JellyfinWeb.Telemetry)
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end
