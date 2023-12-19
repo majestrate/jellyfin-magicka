@@ -46,14 +46,6 @@ initialize database:
 
 	$ mix setup
 
-<!--
-configure:
-
-	$ mix jellyfin.setup genconf --interactive
-
--->
-
-
 testing:
 	
 	$ mix test
