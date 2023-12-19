@@ -4,8 +4,6 @@ defmodule Mix.Tasks.Jellyfin do
   use Mix.Task
 
   defmodule Password do
-    import RandomPassword
-
     use(RandomPassword, alpha: 24, decimal: 16, symbol: 0)
   end
 
@@ -105,18 +103,6 @@ defmodule Mix.Tasks.Jellyfin do
   end
 
   def run(args) when is_cmd(args, "compile") do
-    :ok =
-      case Mix.Task.run("deps", ["get"]) do
-        :error -> :error
-        _ -> :ok
-      end
-
-    :ok =
-      case Mix.Task.run("deps", ["compile"]) do
-        :error -> :error
-        _ -> :ok
-      end
-
     cond do
       not File.exists?(webui(:output)) -> compile_webui()
       Enum.member?(args, @no_cache) -> compile_webui()
@@ -165,9 +151,6 @@ defmodule Mix.Tasks.Jellyfin do
         true ->
           :ok
       end
-  end
-
-  def run(args) when is_list(args) do
   end
 
   def run(arg) when is_binary(arg) do

@@ -83,7 +83,7 @@ jobs:
           path: _build/dev/lib/jellyfin/priv/web
           key: ${{ runner.os }}-${{ hashFiles('external/jellyfin-web/package-lock.json') }}
       - name: mix compile
-        run: mix compile
+        run: mix jellyfin.compile
       - name: webui (store cached)
         uses: actions/cache/save@v3
         with:

@@ -26,4 +26,10 @@ jellyfin_elixir-*.tar
 *~
 *.kate-swp
 
+# generated config bits and bobs
+/config/*.txt
+/config/*.sql
+
+# emacs 
 *\#*
+

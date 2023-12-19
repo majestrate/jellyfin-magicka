@@ -30,7 +30,7 @@ set up submodules:
 compile:
 
 	$ mix local.hex
-	$ mix compile
+	$ mix jellyfin.compile
 
 configure database:
 	
