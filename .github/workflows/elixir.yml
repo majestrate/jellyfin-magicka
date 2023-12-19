@@ -89,3 +89,8 @@ jobs:
         with:
           path: _build/dev/lib/jellyfin/priv/web
           key: ${{ runner.os }}-${{ hashFiles('external/jellyfin-web/package-lock.json') }}
+      - name: Elixir (store cached)
+        uses: actions/cache/save@v3
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ hashFiles('mix.lock') }}
