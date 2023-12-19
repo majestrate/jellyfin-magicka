@@ -29,9 +29,8 @@ set up submodules:
 
 compile:
 
-	$ mix local hex
-	$ mix deps get
-	$ mix jellyfin compile
+	$ mix local.hex
+	$ mix compile
 
 configure database:
 	
@@ -45,7 +44,7 @@ the password is dumped to a file and is read by config on runtime.
 	
 initialize database:
 
-	$ mix jellyfin 
+	$ mix setup
 
 <!--
 configure:
@@ -65,7 +64,7 @@ testing without caching webui:
 
 run:
 
-	$ mix jellyfin run
+	$ mix run
 
 run without caching webui:
 
