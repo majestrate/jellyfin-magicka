@@ -33,3 +33,5 @@ jellyfin_elixir-*.tar
 # emacs 
 *\#*
 
+
+__pycache__

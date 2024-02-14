@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyjellyfin"
+readme = "README.md"
+requires-python = ">= 3.12.2"
+dependencies = [
+    "flask",
+    "psycopg"
+]
+authors = [
+    {email = "jeff@i2p.rocks"}
+]
+liecense = "LICENSE"
+version = "0.0.1"
+
+
+[tool.hatch.build]
+packages = ["src/pyjellyfin"]

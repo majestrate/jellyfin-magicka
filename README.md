@@ -16,3 +16,8 @@
 * ffmpeg >= 5.1
 * postgresql >= 15 with rum indices
 
+## building
+
+
+    $ python3 -m venv v
+    $ ./v/bin/pip install .
