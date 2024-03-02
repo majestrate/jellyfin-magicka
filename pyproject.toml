@@ -11,7 +11,7 @@ dependencies = [
     "psycopg"
 ]
 authors = [
-    {email = "jeff@i2p.rocks"}
+    {name = "jeff"}
 ]
 liecense = "LICENSE"
 version = "0.0.1"
