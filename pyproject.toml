@@ -13,7 +13,7 @@ dependencies = [
 authors = [
     {name = "jeff"}
 ]
-liecense = "LICENSE"
+license = "LICENSE"
 version = "0.0.1"
 
 
