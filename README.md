@@ -11,13 +11,18 @@
 
 ## Requirements
 
-* python3 > 3.12
-* nodejs >= 20.8 && < 21.0.0
+* gleam >= 1.0.0
+* rebar >= 3.22.1
 * ffmpeg >= 5.1
 * postgresql >= 15 with rum indices
+* asdf-vm
+
+
+## setup
+
+    $ asdf install
 
 ## building
 
 
-    $ python3 -m venv v
-    $ ./v/bin/pip install .
+    $ glean run
