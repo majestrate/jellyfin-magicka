@@ -9,7 +9,7 @@ pub fn main() {
 
   let secret_key_base = wisp.random_string(64)
 
-  let ctx = web.Context(webui_directory: webui_directory())
+  let ctx = web.create_context()
 
   let handler = router.handle_request(_, ctx)
 
@@ -19,9 +19,4 @@ pub fn main() {
     |> mist.port(8000)
     |> mist.start_http
   process.sleep_forever()
-}
-
-pub fn webui_directory() -> String {
-  let assert Ok(priv_directory) = wisp.priv_directory("jellyfin")
-  priv_directory <> "/web"
 }

@@ -23,3 +23,12 @@ const version_string = "0.0.1"
 pub fn version() -> json.Json {
   json.object([#("version", json.string(version_string))])
 }
+
+pub fn create_context() -> Context {
+  Context(webui_directory: webui_directory())
+}
+
+fn webui_directory() -> String {
+  let assert Ok(priv_directory) = wisp.priv_directory("jellyfin")
+  priv_directory <> "/web"
+}

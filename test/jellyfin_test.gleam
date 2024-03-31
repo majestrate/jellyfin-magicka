@@ -2,7 +2,6 @@ import gleeunit
 import gleeunit/should
 import jellyfin/router
 import jellyfin/web
-import jellyfin
 import wisp/testing
 import gleam/json
 import gleam/bit_array
@@ -13,7 +12,7 @@ pub fn main() {
 
 fn with_context(testcase: fn(web.Context) -> t) -> t {
   // Create the context to use in tests
-  let context = web.Context(webui_directory: jellyfin.webui_directory())
+  let context = web.create_context()
 
   // Run the test with the context
   testcase(context)
