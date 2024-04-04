@@ -1,0 +1,17 @@
+services:
+
+  jellyfin:
+    image: jellyfin:latest
+    ports: 
+      - "8000:8000"
+    networks:
+      - internal-net
+    volumes:
+      - media-data:/media/data 
+
+volumes:
+  media-data:
+
+networks:
+  public-net: {}
+  internal-net: {}

@@ -1,0 +1,6 @@
+FROM jellyfin_build_env:latest
+WORKDIR /usr/local/src/jellyfin
+RUN ./contrib/exec.sh gleam build
+RUN ./contrib/exec.sh gleam test
+EXPOSE 8000
+CMD ["./contrib/exec.sh", "gleam", "run" ]
