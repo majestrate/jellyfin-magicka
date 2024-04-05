@@ -16,4 +16,4 @@
 ## running
 
     $ make
-    $ podman-compose run jellyfin
+    $ podman-compose up
