@@ -28,9 +28,17 @@ CREATE TABLE IF NOT EXISTS media_sources (
 CREATE TABLE IF NOT EXISTS media_files (
        id SERIAL PRIMARY KEY,
        relative_filepath TEXT NOT NULL, -- filepath relative to media source uri
-       last_synced_at TIME NOT NULL, -- last time we synched data from disk
-       FOREIGN KEY (media_source_id) REFERENCES (media_sources.id),
-       FOREIGN KEY (show_collection_id) REFERENCES (show_collections.id),
+       last_synced_at TIME NOT NULL -- last time we synched data from disk
+
+);
+
+-- intersect table between media_files and shows
+CREATE TABLE IF NOT EXISTS media_file_shows (
+       media_file_id INTEGER NOT NULL,
+       show_id INTEGER NOT NULL,
+       FOREIGN KEY (media_file_id) REFERENCES (media_files.id),
+       FOREIGN KEY (show_id) REFERENCES (shows.id),
+       PRIMARY KEY (media_file_id, show_id)
 );
 
 
