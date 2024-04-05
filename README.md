@@ -11,18 +11,9 @@
 
 ## Requirements
 
-* gleam >= 1.0.0
-* rebar >= 3.22.1
-* ffmpeg >= 5.1
-* postgresql >= 15 with rum indices
-* asdf-vm
+* podman
 
+## running
 
-## setup
-
-    $ asdf install
-
-## building
-
-
-    $ glean run
+    $ make
+    $ podman-compose run jellyfin
