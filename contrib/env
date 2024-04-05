@@ -1,0 +1,3 @@
+POSTGRES_DB=jellyfin
+POSTGRES_PASSWORD=jellyfin
+POSTGRES_USER=jellyfin

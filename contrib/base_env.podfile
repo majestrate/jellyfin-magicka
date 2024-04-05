@@ -6,9 +6,8 @@ RUN /bin/bash -c 'echo -ne "export ASDF_DIR="/opt/asdf"\n. /opt/asdf/asdf.sh" > 
 RUN /bin/bash -c "mkdir /usr/local/src/jellyfin"
 COPY . /usr/local/src/jellyfin/
 WORKDIR /usr/local/src/jellyfin
-
-RUN /bin/bash -lc 'for plug in $(cat /usr/local/src/jellyfin/.tool-versions) ; do (echo $plug | egrep ^[0-9]) || asdf plugin-add $(echo $plug | egrep -v ^[0-9])   ; done '
 COPY ./.tool-versions /root/
+RUN /bin/bash -lc 'for plug in $(cat /root/.tool-versions) ; do (echo $plug | egrep ^[0-9]) || asdf plugin-add $(echo $plug | egrep -v ^[0-9]) ; done '
 RUN ./contrib/exec.sh asdf install erlang
 RUN ./contrib/exec.sh asdf install rebar 
 RUN ./contrib/exec.sh asdf install gleam

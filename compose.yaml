@@ -8,6 +8,14 @@ services:
       - internal-net
     volumes:
       - media-data:/media/data 
+    env_file:
+      - contrib/env
+  db:
+    image: docker.io/postgres:bookworm
+    networks:
+      - internal-net
+    env_file:
+      - contrib/env
 
 volumes:
   media-data:

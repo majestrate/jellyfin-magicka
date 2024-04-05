@@ -1,5 +1,5 @@
 
-all: compile
+all: recompile
 
 setup:
 	podman build -t jellyfin_build_env -f contrib/base_env.podfile .
