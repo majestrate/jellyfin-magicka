@@ -1,5 +1,8 @@
 FROM jellyfin-webui:latest
 WORKDIR /usr/local/src/jellyfin
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 RUN ./contrib/exec.sh mix deps.get
 RUN ./contrib/exec.sh mix compile
 RUN ./contrib/exec.sh mix test
