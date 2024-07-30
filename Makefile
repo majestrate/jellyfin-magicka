@@ -2,7 +2,7 @@
 all: help
 
 help:
-	@echo "run make setup compile up"
+	@echo "run: make setup compile up"
 compile:
 	podman build -t jellyfin-magicka -f contrib/build_jellyfin.podfile --no-cache .
 clean:
