@@ -17,6 +17,7 @@
 
 set up build environment (one time):
 
+    $ git submodule update --init --recursive
     $ make setup
 
 compile:
