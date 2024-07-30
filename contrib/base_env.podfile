@@ -1,16 +1,8 @@
 FROM debian:bookworm
-RUN /bin/bash -c "apt update -y -q && apt upgrade -y -q && apt install -y -q git build-essential curl libncurses-dev libssl-dev"
+RUN /bin/bash -c "apt update -y -q && apt upgrade -y -q && apt install -y -q git build-essential curl libncurses-dev libssl-dev unzip locales"
 RUN /bin/bash -c "git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.14.0" 
 RUN /bin/bash -c 'echo -ne "export ASDF_DIR="/opt/asdf"\n. /opt/asdf/asdf.sh" > ~/.profile'
-
 RUN /bin/bash -c "mkdir /usr/local/src/jellyfin"
-COPY . /usr/local/src/jellyfin/
-WORKDIR /usr/local/src/jellyfin
 COPY ./.tool-versions /root/
-RUN /bin/bash -lc 'for plug in $(cat /root/.tool-versions) ; do (echo $plug | egrep ^[0-9]) || asdf plugin-add $(echo $plug | egrep -v ^[0-9]) ; done '
-RUN ./contrib/exec.sh asdf install erlang
-RUN ./contrib/exec.sh asdf install rebar 
-RUN ./contrib/exec.sh asdf install gleam
-RUN ./contrib/exec.sh gleam deps download
-
+RUN /bin/bash -lc 'for plug in $(cat /root/.tool-versions) ; do (echo $plug | egrep ^[0-9]) || asdf plugin-add $(echo $plug | egrep -v ^[0-9]) && asdf install $(echo $plug | egrep -v ^[0-9]) ; done '
 

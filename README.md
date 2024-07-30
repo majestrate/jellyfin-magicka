@@ -13,7 +13,16 @@
 
 * podman
 
+## building
+
+set up build environment (one time):
+
+    $ make setup
+
+compile:
+
+    $ make compile
+
 ## running
 
-    $ make
     $ podman-compose up

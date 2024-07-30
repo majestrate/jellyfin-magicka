@@ -1,14 +1,17 @@
 
-all: recompile
+all: compile
 
-setup:
-	podman build -t jellyfin_build_env -f contrib/base_env.podfile .
-compile:
-	podman build -t jellyfin -f contrib/build_jellyfin.podfile .
+webui:
+	podman build -t jellyfin-webui -f contrib/build_webui.podfile .
+
+compile: webui
+	podman build -t jellyfin-magicka -f contrib/build_jellyfin.podfile .
 
 clean:
-	podman rmi -f jellyfin_build_env:latest jellyfin:latest
+	podman rmi -f jellyfin_build_env:latest jellyfin-magicka:latest jellyfin-webui:latest
 
-recompile:
+setup:
 	podman build -t jellyfin_build_env -f contrib/base_env.podfile --no-cache .
-	podman build -t jellyfin -f contrib/build_jellyfin.podfile --no-cache .	
+
+run:
+	podman-compose up
