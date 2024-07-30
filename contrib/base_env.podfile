@@ -1,5 +1,6 @@
 FROM debian:bookworm
 RUN /bin/bash -c "apt update -y -q && apt upgrade -y -q && apt install -y -q git build-essential curl libncurses-dev libssl-dev unzip locales"
+RUN /bin/bash -c "echo en_US.UTF-8 UTF-8 >> /etc/locale.gen && locale-gen"
 RUN /bin/bash -c "git clone https://github.com/asdf-vm/asdf.git /opt/asdf --branch v0.14.0" 
 RUN /bin/bash -c 'echo -ne "export ASDF_DIR="/opt/asdf"\n. /opt/asdf/asdf.sh" > ~/.profile'
 RUN /bin/bash -c "mkdir /usr/local/src/jellyfin"
