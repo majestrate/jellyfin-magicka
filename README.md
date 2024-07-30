@@ -9,11 +9,13 @@
 
 `uwu`
 
-## Requirements
+## Building
 
+build requirements:
+
+* git
+* GNU make
 * podman
-
-## building
 
 set up build environment (one time):
 
@@ -26,4 +28,10 @@ compile:
 
 ## running
 
-    $ podman-compose up
+to run:
+
+    $ make up
+
+to stop:
+
+    $ make down
