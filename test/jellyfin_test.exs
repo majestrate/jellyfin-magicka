@@ -1,8 +1,15 @@
 defmodule JellyfinTest do
-  use ExUnit.Case
-  doctest Jellyfin
+  use ExUnit.Case, async: true
+  use Plug.Test
 
-  test "greets the world" do
-    assert Jellyfin.hello() == :world
+  @options Jellyfin.Router.init([])
+
+  test "public system info fetches fine" do
+    {status, _headers, _body} =
+      conn(:get, "/system/info/public")
+      |> Jellyfin.Router.call(@options)
+      |> Plug.Test.sent_resp()
+
+    assert status == 200
   end
 end
