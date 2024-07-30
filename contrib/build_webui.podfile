@@ -1,4 +1,4 @@
-FROM jellyfin_build_env:latest
+FROM jellyfin-build:latest
 COPY . /usr/local/src/jellyfin
 WORKDIR /usr/local/src/jellyfin
 RUN ./contrib/build_webui.sh
