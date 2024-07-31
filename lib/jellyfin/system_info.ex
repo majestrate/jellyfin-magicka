@@ -7,7 +7,7 @@ defmodule Jellyfin.SystemInfo do
   end
 
   defp sysinfo_part(symbol) do
-    Application.fetch_env!(:jellyfin, symbol)
+    Application.fetch_env!(:jellyfin, Jellyfin.SystemInfo) |> get_in([symbol])
   end
 
   defp localaddr() do

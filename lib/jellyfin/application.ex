@@ -8,7 +8,8 @@ defmodule Jellyfin.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Bandit, plug: Jellyfin.Router, scheme: :http, port: 8000}
+      {Bandit, plug: Jellyfin.Router, scheme: :http, port: 8000},
+      Jellyfin.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
