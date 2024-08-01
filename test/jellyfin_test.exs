@@ -12,4 +12,13 @@ defmodule JellyfinTest do
 
     assert status == 200
   end
+
+  test "fetch users" do
+    {status, _headers, _body} =
+      conn(:get, "/users")
+      |> Jellyfin.Router.call(@options)
+      |> Plug.Test.sent_resp()
+
+    assert status == 200
+  end
 end

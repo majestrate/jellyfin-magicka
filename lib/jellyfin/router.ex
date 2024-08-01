@@ -22,6 +22,8 @@ defmodule Jellyfin.Router do
   forward("/web", to: Jellyfin.WebUI)
 
   forward("/system/info/public", to: Jellyfin.SystemInfo)
+  forward("/users", to: Jellyfin.UserController)
+  forward("/Users", to: Jellyfin.UserController)
 
   match _ do
     send_resp(conn, 404, "not found")
